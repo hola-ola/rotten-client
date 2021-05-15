@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import * as PATHS from "../utils/paths";
 // class MoviesPage extends React.Component {
 //   state = {
 //     counter: 1,
@@ -72,8 +74,10 @@ function MoviesPage() {
       {listOfMovies.map((movie) => {
         return (
           <section key={movie._id}>
-            <h2>{movie.title}</h2>
-            <img src={movie.coverPic} style={{ width: "300px" }} />
+            <Link to={`${PATHS.MOVIES_PAGE}/${movie._id}`}>
+              <h2>{movie.title}</h2>
+              <img src={movie.coverPic} style={{ width: "300px" }} />
+            </Link>
           </section>
         );
       })}
