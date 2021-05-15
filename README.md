@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+## Rotten Potatos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Components v Pages
+Even though both are going be constructed as `components`. I want to have a clear split (in terms of mental picture) between what we call a component and a page in this application
 
-## Available Scripts
+### Pages & Routes
 
-In the project directory, you can run:
+/                 HomePage       Page
+/login            LoginPage      Page
+/signup           SignupPage     Page
+/profile          ProfilePage    Page
+/movies           MoviesPage     Page
+/movies?          SearchMovies   Page
+/movies/add       Add Movies     Page
+/movies/:id/edit  Edit Movies    Page
+/movies/:id       SingleMovies   Page
+/:username        SingleUserProfile Page
+NOT FOUND
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Data necessary for each page 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+ALL OVER -> if logged in -> `DELETE` request for logout
 
-### `yarn test`
+/ -> user info (to check if you're logged in or not) // user from DB
+/login -> to be able to send POST request
+/signup -> to be able to send POST request
+/profile -> user info and be able to send `PUT`/`PATCH`, `DELETE`, or `POST` 
+/movies -> a list of movies
+/movies? -> list of movies filtered
+/movies/add -> `POST` request to create movie
+/movies/:id/edit -> `PUT` request to update a single movie
+/movies/:id -> `GET` request to get single movie. `POST` request to create review. `PUT` request to edit a review
+/:username   -> `GET` request to get single user info
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Protected routes?
 
-### `yarn build`
+/ -> Doesnt have to be auth
+/login -> Doesnt have to be auth
+/signup -> Doesnt have to be auth
+/profile -> Has to be auth
+/movies & /movies? -> 
+   -  To see list: No auth
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+/movies/:id ->
+   -  To see reviews: No auth
+   -  To edit review: Auth and have to be owner of the review
+   -  To add review: Auth needed
+   -  To delete review: Auth and have to be owner of the review
+/movies/:id/edit -> MAYBE: Add an admin user, and to edit you have to be admin
+/movies/add -> Need to be Auth. MAYBE later: add an admin user to add
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+/:username -> Dont have to be auth
