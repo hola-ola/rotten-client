@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Switch, Route } from "react-router-dom";
+import HomePageComponent from "./pages/HomePage";
+import MoviesPage from "./pages/MoviesPage";
+import * as PATHS from "./utils/paths";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar />
+      <Switch>
+        <Route exact path={PATHS.HOME_PAGE} component={HomePageComponent} />
+        {/* <Route exact path="/login" component={LoginPage}/> */}
+        {/* <Route exact path="/signup" component={SignupPage}/> */}
+        {/* <Route exact path="/profile" component={ProfilePage}/> */}
+        <Route exact path={PATHS.MOVIES_PAGE} component={MoviesPage} />
+        {/* <Route exact path="/movies/add" component={AddMoviePage}/> */}
+        {/* <Route exact path="movies/:movieId" component={SingleMoviePage}/> */}
+        {/* <Route exact path="movies/:movieId/edit" component={EditSinglePage}/> */}
+        {/* <Route exact path="/:username" component={SingleUserPage}/> */}
+      </Switch>
     </div>
   );
 }
