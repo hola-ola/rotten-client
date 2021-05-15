@@ -1,5 +1,5 @@
 import React from "react";
-
+import axios from "axios";
 // class MoviesPage extends React.Component {
 //   state = {
 //     counter: 1,
@@ -9,6 +9,9 @@ import React from "react";
 
 //   componentDidMount = () => {
 //     console.log("WE CAN RUN SOME CODE HRE, COMPONENT WAS `mounted`");
+//     axios.get("http://localhost:5000/api/movies").then((response) => {
+//       console.log("response:", response);
+//     });
 //   };
 
 //   componentDidUpdate = () => {
@@ -42,14 +45,40 @@ import React from "react";
 
 // FUNCTIONAL WAY
 function MoviesPage() {
+  const [listOfMovies, setListOfMovies] = React.useState([]);
+  //   const [counter, setCounter] = React.useState(1);
+
   React.useEffect(() => {
     console.log("WE CAN RUN SOME CODE HERE, COMPONENT WAS `mounted`");
     // WHEN THE COMPONENTS, we will do an API call to get data that, at WRITE time, we dont have access to
-
+    axios
+      .get(`http://localhost:5000/api/movies`)
+      .then((response) => {
+        console.log("response:", response);
+        setListOfMovies(response.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     return () => console.log("Bye bye eeh");
-  });
+  }, []); // is the equivalent of componentDidMount
 
-  return <div></div>;
+  //   React.useEffect(() => {
+  //      console.log("COUNTER UPDATED")
+  //   }, [counter, listOfMovies])
+
+  return (
+    <div>
+      {listOfMovies.map((movie) => {
+        return (
+          <section key={movie._id}>
+            <h2>{movie.title}</h2>
+            <img src={movie.coverPic} style={{ width: "300px" }} />
+          </section>
+        );
+      })}
+    </div>
+  );
 }
 
 export default MoviesPage;
