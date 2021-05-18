@@ -9,9 +9,14 @@ import SingleMoviePage from "./pages/SingleMoviePage";
 import SignupPage from "./pages/SignupPage";
 
 function App() {
+  const [user, setUser] = React.useState(null);
+
+  function authenticate(user) {
+    setUser(user);
+  }
   return (
     <div>
-      <Navbar />
+      <Navbar user={user} />
       <Switch>
         {/* <Route exact path={PATHS.HOME_PAGE} component={HomePageComponent} /> */}
         <Route
@@ -22,7 +27,16 @@ function App() {
           )}
         />
         {/* <Route exact path="/login" component={LoginPage}/> */}
-        <Route exact path="/signup" component={SignupPage} />
+        <Route
+          exact
+          path="/signup"
+          render={(zazuIsTheMessengerDontKillTheMessenger) => (
+            <SignupPage
+              {...zazuIsTheMessengerDontKillTheMessenger}
+              authenticate={authenticate}
+            />
+          )}
+        />
         {/* <Route exact path="/profile" component={ProfilePage}/> */}
         <Route exact path={PATHS.MOVIES_PAGE} component={MoviesPage} />
         {/* <Route exact path="/movies/add" component={AddMoviePage}/> */}

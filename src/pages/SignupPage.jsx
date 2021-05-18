@@ -2,51 +2,27 @@ import React from "react";
 import axios from "axios";
 
 function SignupPage(props) {
-  console.log("props:", props);
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
   const [form, setForm] = React.useState({
     username: "",
     email: "",
     password: "",
   });
-  console.log("form:", form);
 
   function onSubmit(event) {
     event.preventDefault();
     axios
-      .post("http://localhost:5000/api/auth/signup", {
-        username,
-        email,
-        password,
-      })
+      .post("http://localhost:5000/api/auth/signup", form)
       .then((response) => {
-        //   console.log("HURRAY", response.data);
+        props.authenticate(response.data.user);
         props.history.push("/");
       })
       .catch((err) => {
-        console.log("err:", err.response);
+        console.log("err:", err.response); // this is in axios errors
       });
   }
 
-  function handleUsernameChange(e) {
-    if (e.target.name === "password") {
-      setPassword(e.target.value);
-    } else {
-      setUsername(e.target.value);
-    }
-  }
-
   function handleChange(event) {
-    console.log(event.target.value, event.target.name);
-    //  const obk = { tom: "tommeeeeh" };
-    //  const khrys = "tom";
-    //  //  obk[khrys];
-    //  const obj = {
-    //    [khrys]: "tomeeh",
-    //  };
-    setForm({ [event.target.name]: event.target.value });
+    setForm({ ...form, [event.target.name]: event.target.value });
   }
 
   return (
