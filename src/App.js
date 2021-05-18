@@ -13,7 +13,14 @@ function App() {
     <div>
       <Navbar />
       <Switch>
-        <Route exact path={PATHS.HOME_PAGE} component={HomePageComponent} />
+        {/* <Route exact path={PATHS.HOME_PAGE} component={HomePageComponent} /> */}
+        <Route
+          exact
+          path={PATHS.HOME_PAGE}
+          render={(reactRouterProps) => (
+            <HomePageComponent {...reactRouterProps} />
+          )}
+        />
         {/* <Route exact path="/login" component={LoginPage}/> */}
         <Route exact path="/signup" component={SignupPage} />
         {/* <Route exact path="/profile" component={ProfilePage}/> */}

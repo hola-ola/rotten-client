@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function SingleMoviePage(props) {
+  console.log("props:", props);
   const [singleMovie, setSingleMovie] = useState({});
 
   useEffect(() => {
