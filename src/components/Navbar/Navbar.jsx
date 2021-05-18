@@ -7,6 +7,7 @@ function Navbar() {
     <nav>
       <Link to={PATHS.HOME_PAGE}>Home</Link>
       <Link to={PATHS.MOVIES_PAGE}>Movies</Link>
+      <Link to={PATHS.SIGNUP_PAGE}>Signup</Link>
     </nav>
   );
 }
