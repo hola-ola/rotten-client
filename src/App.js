@@ -8,13 +8,42 @@ import Navbar from "./components/Navbar/Navbar";
 import SingleMoviePage from "./pages/SingleMoviePage";
 import SignupPage from "./pages/SignupPage";
 import axios from "axios";
+import LoginPage from "./pages/Login.page";
 // because we need to get user data
+
+// fetch('http://locahost:5000/api', {
+//   headers
+// })
+
+// function DisplayUser(props) {
+//   return (
+//     <div>
+//       <h1>{props.name}</h1>
+//       <h2>{props.from}</h2>
+//       <h3>{props.inCountry}</h3>
+//     </div>
+//   );
+// }
+
+// function AnotherAppComponentJustToMakeExample() {
+//   const user = {
+//     name: "Khrys",
+//     from: "Ukraine",
+//     inCountry: "netherlands",
+//   };
+
+//   return <DisplayUser {...user} />;
+//   // return <DisplayUser name={user.name} from={user.from} inCountry={user.inCountry} />
+// }
 
 function App() {
   const [user, setUser] = React.useState(null);
 
   React.useEffect(() => {
     const myAccessToken = localStorage.getItem("accessToken");
+    if (!myAccessToken) {
+      return;
+    }
     axios
       .get("http://localhost:5000/api/auth/me", {
         headers: {
@@ -22,7 +51,6 @@ function App() {
         },
       })
       .then((response) => {
-        console.log("response:", response);
         setUser(response.data);
       })
       .catch((err) => {
@@ -35,9 +63,14 @@ function App() {
   }
 
   function logout() {
+    const accessToken = localStorage.getItem("accessToken");
     setUser(null);
     localStorage.removeItem("accessToken");
-    axios.delete(`http://localhost:5000/api/logout`);
+    return axios.delete(`http://localhost:5000/api/auth/logout`, {
+      headers: {
+        Authorization: accessToken,
+      },
+    });
   }
 
   return (
@@ -52,7 +85,13 @@ function App() {
             <HomePageComponent {...reactRouterProps} />
           )}
         />
-        {/* <Route exact path="/login" component={LoginPage}/> */}
+        <Route
+          exact
+          path={PATHS.LOGIN_PAGE}
+          render={(values) => {
+            return <LoginPage {...values} authenticate={authenticate} />;
+          }}
+        />
         <Route
           exact
           path="/signup"

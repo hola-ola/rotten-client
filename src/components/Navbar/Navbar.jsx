@@ -7,10 +7,23 @@ function Navbar(props) {
     <nav>
       <Link to={PATHS.HOME_PAGE}>Home</Link>
       <Link to={PATHS.MOVIES_PAGE}>Movies</Link>
-      <Link to={PATHS.SIGNUP_PAGE}>Signup</Link>
+
+      {props.user ? (
+        <div>
+          <div>Hey {props.user.username}</div>
+          <div onClick={props.logout}>Logout</div>
+        </div>
+      ) : (
+        <>
+          <Link to={PATHS.SIGNUP_PAGE}>Signup</Link>
+          <Link to={PATHS.LOGIN_PAGE}>Login</Link>
+        </>
+      )}
+      {/* {!props.user && <Link to={PATHS.SIGNUP_PAGE}>Signup</Link>}
+      {props.user ? null : <Link to={PATHS.LOGIN_PAGE}>Login</Link>}
 
       {props.user ? <div>Hey {props.user.username}</div> : null}
-      {props.user ? <div onClick={props.logout}>Logout</div> : null}
+      {props.user ? <div onClick={props.logout}>Logout</div> : null} */}
     </nav>
   );
 }
