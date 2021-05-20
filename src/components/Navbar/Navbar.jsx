@@ -10,6 +10,7 @@ function Navbar(props) {
       <Link to={PATHS.SIGNUP_PAGE}>Signup</Link>
 
       {props.user ? <div>Hey {props.user.username}</div> : null}
+      {props.user ? <div onClick={props.logout}>Logout</div> : null}
     </nav>
   );
 }
