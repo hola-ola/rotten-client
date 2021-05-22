@@ -1,0 +1,14 @@
+body {
+  margin-left: 50px;
+}
+
+.button {
+  padding: 2px 10px;
+  margin: 10px;
+}
+
+#profilePic {
+  border-radius: 50%;
+  height: 150px;
+  margin-top: 50px;
+}

@@ -4,11 +4,14 @@ import { Switch, Route } from "react-router-dom";
 import HomePageComponent from "./pages/HomePage";
 import MoviesPage from "./pages/MoviesPage";
 import * as PATHS from "./utils/paths";
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components/Navbar";
 import SingleMoviePage from "./pages/SingleMoviePage";
 import SignupPage from "./pages/SignupPage";
 import axios from "axios";
-import LoginPage from "./pages/Login.page";
+import LoginPage from "./pages/Loginpage";
+import ProfilePage from "./pages/ProfilePage";
+import ProtectedRoute from "./components/routing/ProtectedRoute";
+import NormalRoute from "./components/routing/NormalRoute";
 // because we need to get user data
 
 // fetch('http://locahost:5000/api', {
@@ -77,29 +80,30 @@ function App() {
     <div>
       <Navbar user={user} logout={logout} />
       <Switch>
-        {/* <Route exact path={PATHS.HOME_PAGE} component={HomePageComponent} /> */}
-        <Route
+        <NormalRoute
           exact
           path={PATHS.HOME_PAGE}
-          render={(reactRouterProps) => (
-            <HomePageComponent {...reactRouterProps} />
-          )}
+          component={HomePageComponent}
         />
-        <Route
+        <NormalRoute
           exact
           path={PATHS.LOGIN_PAGE}
-          render={(values) => {
-            return <LoginPage {...values} authenticate={authenticate} />;
-          }}
+          authenticate={authenticate}
+          component={LoginPage}
         />
-        <Route
+        <NormalRoute
           exact
-          path="/signup"
-          render={(reactRouterProps) => (
-            <SignupPage {...reactRouterProps} authenticate={authenticate} />
-          )}
+          path={PATHS.SIGNUP_PAGE}
+          authenticate={authenticate}
+          component={SignupPage}
         />
-        {/* <Route exact path="/profile" component={ProfilePage}/> */}
+        <ProtectedRoute
+          exact
+          path={PATHS.PROFILE_PAGE}
+          component={ProfilePage}
+          user={user}
+          authenticate={authenticate}
+        />
         <Route exact path={PATHS.MOVIES_PAGE} component={MoviesPage} />
         {/* <Route exact path="/movies/add" component={AddMoviePage}/> */}
         <Route exact path={PATHS.SINGLE_MOVIE} component={SingleMoviePage} />

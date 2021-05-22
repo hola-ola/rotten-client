@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import * as PATHS from "../../utils/paths";
+import * as PATHS from "../utils/paths";
 
 function Navbar(props) {
   return (
@@ -10,7 +10,10 @@ function Navbar(props) {
 
       {props.user ? (
         <div>
-          <div>Hey {props.user.username}</div>
+          <div>Hey, {props.user.username}!</div>
+          <div>
+            <Link to={PATHS.PROFILE_PAGE}>Profile</Link>
+          </div>
           <div onClick={props.logout}>Logout</div>
         </div>
       ) : (
